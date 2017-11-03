@@ -1,0 +1,12 @@
+figure;
+subplot(3,1,1);
+plot(t, y(:,1:2));grid on;
+l = legend('$\dot{\theta}$','$\theta$');
+set(l,'Interpreter','Latex');
+subplot(3,1,2);
+plot(t, y(:,3:4));grid on;
+legend('v','s');
+subplot(3,1,3);
+plot(t, u,'b');hold on; grid on;
+plot(t, setTheta(:,2),'r');
+legend('sterowanie','wartosc zad.');
