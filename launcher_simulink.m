@@ -11,7 +11,7 @@ setPos = [t,ones(tt,1) * 0];
 
 % warunek poczatkowy i parametry
 thetaDot0 = 0;
-theta0 = 1/20 * pi;
+theta0 = 1/5 * pi;
 xDot0 = 0;
 x0 = 0;
 state0 = [thetaDot0;theta0;xDot0;x0];  
@@ -33,18 +33,13 @@ Td1 = 0.24;
 Kp2 = 6;
 Ti2 = inf;
 Td2 = 1.5;
-% LQR
-K = [-6.6845,-51.6047,-9.6527,-10];
-N = K(4);
 
 % symulacja z simulinka
 disp('Start symulacji...');
 tic();
-%sim('stabilizacja_pid_kaskada.slx');
-%sim('stabilizacja_pid_rownolegle.slx');
-sim('stabilizacja_lqr.slx');
-disp('Koniec symulacji');
+sim('stabilizacja_pid_rownolegle.slx');
 toc();
+disp('Koniec symulacji');
 
 % wykresy
 run plots;
