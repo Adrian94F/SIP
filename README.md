@@ -1,21 +1,21 @@
 # Wahadło odwrócone
 
+## TODO
+- podawać różne dane i ręcznie dostosowywać PIDy
+- klasyfikator czy wahadło ustabilizowane, czy nie
+- potem sieć do wahadła
+
+## Przydatne info
 - Regulator PID
 - różne wartości siły/przyspieszenia
 - znaleźć rozwiązanie
 - matlab/simulink
 - sieci
-	- modelowanie ruchu wahadła
 	- modelowanie sterowania
+	- modelowanie ruchu wahadła
 	- zobaczyć proponowaną sieć w ksiażce
 	- perceptron
 	- matlab proponowany
-
-## TODO
-- Zrobić PID --> nauczyciel (na następne zajęcia)
-- ogarnąć literaturę, zacząć robić sieć
-- potrzebny perceptron
-- uczenie perceptronu na podstawie tego, co wynika z PID
 
 ## Książki
 - Korbicz Obuchowicz Łysiński - "Sztuczne sieci neuronowe - podstawy i zastosowania"
@@ -23,3 +23,4 @@
 
 ## Źródła
 - http://jtjt.pl/odwrocone-wahadlo
+- http://jtjt.pl/www/pages/odwrocone-wahadlo/LMIP.pdf

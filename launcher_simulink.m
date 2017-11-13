@@ -23,7 +23,7 @@ b = 0.1; % wspolczynnik tarcia wozka
 g = 9.80665; % przyspieszenie ziemskie
 params = [M,m,L,I,b,g];
 
-% wybor modelu i regulatora
+% wybor modelu
 modelSelect = 'linear';
 % PID1
 Kp1 = -50.8;
