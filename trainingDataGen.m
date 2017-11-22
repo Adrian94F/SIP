@@ -1,5 +1,4 @@
 clearvars;
-
 % parametry symulacji
 tSim = 10;
 global h;
@@ -8,7 +7,6 @@ t = (0:h:tSim)';
 tt = numel(t);
 setTheta = [t,ones(tt,1) * 0];
 setPos = [t,ones(tt,1) * 0];
-
 % warunek poczatkowy i parametry
 thetaDot0 = 0;
 theta0 = 1/5 * pi;
@@ -22,26 +20,26 @@ I = 0.006; % moment bezwladnosci wahadla
 b = 0.1; % wspolczynnik tarcia wozka
 g = 9.80665; % przyspieszenie ziemskie
 params = [M,m,L,I,b,g];
-
 % wybor modelu
 modelSelect = 'linear';
-% PID1
-Kp1 = -50.8;
-Ti1 = 7.26;
-Td1 = 0.24;
-% PID2
-Kp2 = 6;
-Ti2 = inf;
-Td2 = 1.5;
+numberOfTests = 10;
 
-% symulacja z simulinka
-disp('Start symulacji...');
-tic();
-sim('stabilizacja_pid_rownolegle.slx');
-toc();
-disp(isStabilised(tSim, h, y));
-disp('Koniec symulacji');
+% generowanie randomowych nastaw PIDów
+randomPidSets = [rand(numberOfTests,6); [-50.8 7.26 0.24 6 inf 1.5]];
 
-% wykresy
-run plots;
-run anims;
+% klasyfikacja wyników
+results = [ ];
+
+for row=1:size(randomPidSets,1)
+    % PID1
+    Kp1 = randomPidSets(row,1);
+    Ti1 = randomPidSets(row,2);
+    Td1 = randomPidSets(row,3);
+    % PID2
+    Kp2 = randomPidSets(row,4);
+    Ti2 = randomPidSets(row,5);
+    Td2 = randomPidSets(row,6);
+    % symulacja
+    sim('stabilizacja_pid_rownolegle.slx');
+    results = [results isStabilised(tSim, h, y)];
+end

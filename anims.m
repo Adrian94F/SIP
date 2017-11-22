@@ -13,7 +13,7 @@ else
 end
 
 f = figure('doublebuffer','on');
-figMargin = 0.04;
+figMargin = 0.06;
 cartWidth = 0.2;
 axes('position', [figMargin figMargin 1-2*figMargin 1-2*figMargin]);axis equal;
 standLength = 5;

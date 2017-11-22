@@ -1,8 +1,17 @@
 # Wahadło odwrócone
 
+## Quo vadis?
+- generujemy losowe nastawy PIDów
+- klasyfikujemy je - czy doprowadzają do stabilizacji, czy też nie (czyli określona prędkość po zadanym czasie)
+- ale coś jest nie tak...
+- dokąd tuptamy?
+
+![alt text](http://paczaizm.pl/content/wp-content/uploads/kim-jestesmy-dokad-tuptamy-jez-jezyk.jpg "kim... dokąd...")
+
 ## TODO
 - podawać różne dane i ręcznie dostosowywać PIDy
 - klasyfikator czy wahadło ustabilizowane, czy nie
+	- ustabilizowane: prędkość poniżej 0,001 m/s w czasie mniejszym, niż 10 s
 - potem sieć do wahadła
 
 ## Przydatne info

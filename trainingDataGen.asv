@@ -1,5 +1,4 @@
 clearvars;
-
 % parametry symulacji
 tSim = 10;
 global h;
@@ -8,7 +7,6 @@ t = (0:h:tSim)';
 tt = numel(t);
 setTheta = [t,ones(tt,1) * 0];
 setPos = [t,ones(tt,1) * 0];
-
 % warunek poczatkowy i parametry
 thetaDot0 = 0;
 theta0 = 1/5 * pi;
@@ -22,9 +20,17 @@ I = 0.006; % moment bezwladnosci wahadla
 b = 0.1; % wspolczynnik tarcia wozka
 g = 9.80665; % przyspieszenie ziemskie
 params = [M,m,L,I,b,g];
-
 % wybor modelu
 modelSelect = 'linear';
+numberOfTests = 100;
+
+randomPidSets = rand(numberOfTests,6) + [-50.8 7.26 0.24 6 inf 1.5];
+
+for row=1:size(A,1)
+    for col=1:size(A,2)
+          B(row,1)=max(A(:,col))
+      end
+ end
 % PID1
 Kp1 = -50.8;
 Ti1 = 7.26;
@@ -35,13 +41,5 @@ Ti2 = inf;
 Td2 = 1.5;
 
 % symulacja z simulinka
-disp('Start symulacji...');
-tic();
 sim('stabilizacja_pid_rownolegle.slx');
-toc();
 disp(isStabilised(tSim, h, y));
-disp('Koniec symulacji');
-
-% wykresy
-run plots;
-run anims;
