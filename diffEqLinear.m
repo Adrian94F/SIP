@@ -1,3 +1,7 @@
+% model wahadla zlinearyzowany wokol punktu rownowagi
+% state - obecny stan obiektu
+% params - wektor parametrow wozka
+% u - wejscie na obiekt (sila przylozona do wozka)
 function [ stateDot ] = diffEqLinear( state,params,u )
     M = params(1); % masa wozka
     m = params(2); % masa wahadla

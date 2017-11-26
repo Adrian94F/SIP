@@ -1,19 +1,20 @@
 classdef cart
     properties(Access = public)
-        cartWidth;
-        cartHeight;
-        pendulumLength;
-        pendulumThickness;
-        bigRadius = 0.05;
-        smallRadius = 0.025;
+        cartWidth; % dlugosc
+        cartHeight; % wysokosc
+        pendulumLength; % dlugosc wahadla
+        pendulumThickness; % grubosc wahadla
+        bigRadius = 0.05; % promien duzego okregu mocowania
+        smallRadius = 0.025; % promien malego okregu mocowania
         
         patches = [];
         cartAxis;
         
-        lastX = 0;
-        lastTheta = 0;
+        lastX = 0; % poprzednia pozycja wozka
+        lastTheta = 0; % poprzedni kat wychylenia wahadla
     end
     methods(Access = public)
+        % konstrutor inicjalizujacy wszystkie parametry wozka
         function obj = cart(width)
             obj.cartWidth = width;
             obj.cartHeight = width / 2;
@@ -39,6 +40,7 @@ classdef cart
             obj.patches = [obj.patches,patch(x,y,'y')];
             obj.cartAxis = [0,obj.cartHeight/2,0];
         end
+        % funkcja przesuwajaca wozek do zadanej pozycji x
         function obj = move(obj,x)
             delta = x - obj.lastX;
             for i = 1:numel(obj.patches)
@@ -48,6 +50,7 @@ classdef cart
             obj.cartAxis(1) = obj.cartAxis(1) + delta;
             obj.lastX = x;
         end
+        % funkcja obracajaca wahadlo do zadanego kata theta
         function obj = rotate(obj,theta)
             delta = theta - obj.lastTheta;
             rotate(obj.patches(3),[0 0 -1],delta,obj.cartAxis);

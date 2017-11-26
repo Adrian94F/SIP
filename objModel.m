@@ -1,3 +1,12 @@
+% s-funkcja dla modelu wahadla
+% t - aktualna wartosc czasu
+% state - wektor stanu
+% u - wejscie obiektu
+% flag - zmienna przechowujaca stan symulacji s-funkcji
+% i teraz parametry dodatkowe
+% state0 - wektor stanu poczatkowego
+% params - parametry wahadla
+% modelSel - wybor rodzaju model - full / linear
 function [ sys,init,str,ts ] = objModel( t,state,u,flag,state0,params,modelSel)
     switch flag
         case 0

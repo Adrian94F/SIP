@@ -1,3 +1,7 @@
+% pelny nieliniowy model wozka w postaci rownan rozniczkowych
+% state - obecny stan obiektu
+% params - wektor parametrow wozka
+% u - wejscie na obiekt (sila przylozona do wozka)
 function [ stateDot ] = diffEqFull( state,params,u )
     M = params(1); % masa wozka
     m = params(2); % masa wahadla
