@@ -22,13 +22,14 @@ g = 9.80665; % przyspieszenie ziemskie
 params = [M,m,L,I,b,g];
 % wybor modelu
 modelSelect = 'linear';
-numberOfTests = 10;
+numberOfTests = 100;
 
 % generowanie randomowych nastaw PIDów
 randomPidSets = [rand(numberOfTests,6); [-50.8 7.26 0.24 6 inf 1.5]];
 
 % klasyfikacja wyników
-results = [ ];
+tic();
+results = zeros(1, size(randomPidSets,1));
 
 for row=1:size(randomPidSets,1)
     % PID1
@@ -41,5 +42,7 @@ for row=1:size(randomPidSets,1)
     Td2 = randomPidSets(row,6);
     % symulacja
     sim('stabilizacja_pid_rownolegle.slx');
-    results = [results isStabilised(tSim, h, y)];
+    results(row) = isStabilised(tSim, h, y);
 end
+toc();
+disp(results);
