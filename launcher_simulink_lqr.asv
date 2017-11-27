@@ -18,8 +18,17 @@ xDot0 = 0;
 x0 = 0;
 state0 = [thetaDot0;theta0;xDot0;x0]; % wektor stanu poczatkowego wahadla
 nOfGenParams = 5;
-randomParams = [rand(nOfGenParams, 4)];
+randomParams = [rand(nOfGenParams, 4) zeros(];
+results = [];
 for i=1:nOfGenParams
+    b = 0.1; % wspolczynnik tarcia wozka
+    g = 9.80665; % przyspieszenie ziemskie
+    M = randomParams(i,1); % masa wozka
+    m = randomParams(i,2); % masa wahadla
+    L = randomParams(i,3); % dlugosc od mocowania do srodka ciezkosci wahadla
+    K = strojenie_lqr(M,m,L,b); % nastawy do sterownika liniowo kwadratowego
+end
+
     % M = 0.5; % masa wozka
     % m = 0.2; % masa wahadla
     % L = 0.3; % dlugosc od mocowania do srodka ciezkosci wahadla
@@ -36,7 +45,7 @@ for i=1:nOfGenParams
 
     % parametry regulatorow
     % LQR
-    strojenie_lqr(M,m,L,b);
+    K = strojenie_lqr(M,m,L,b);
     %K = [-6.6845,-51.6047,-9.6527,-10];
     N = K(4);
 
@@ -47,8 +56,8 @@ for i=1:nOfGenParams
     sim('stabilizacja_lqr.slx');
     disp('Koniec symulacji');
     toc();
-
+    results = [results isStabilised(tSim, h, y)];
     % wykresy
-    run plots;
-    run anims;
+    % run plots;
+    % run anims;
 end

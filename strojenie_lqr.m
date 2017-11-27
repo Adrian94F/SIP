@@ -18,14 +18,14 @@ function [K] = strojenie_lqr(M, m, L, b)
 
     % test obserwowalnosci
     ob = obsv(A,C);
-    rank(ob)
+    rank(ob);
     % test sterowalnosci
     ct = ctrb(A,B);
-    rank(ct)
+    rank(ct);
 
     % lqr
     Q = diag([0 1000 0 100]);
     R = 1;
     K = lqr(A,B,Q,R);
-    disp(['K = [',num2str(K(1)),',',num2str(K(2)),',',num2str(K(3)),',',num2str(K(4)),'];']);
+    % disp(['K = [',num2str(K(1)),',',num2str(K(2)),',',num2str(K(3)),',',num2str(K(4)),'];']);
 end
