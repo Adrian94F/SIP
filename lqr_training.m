@@ -13,3 +13,5 @@ for i=1:nOfGenParams
 end
 
 % TODO: uczenie sieci neuronowej na tej podstawie
+% we: randomValues(:,1:4)
+% wy: wandomValues(:,5:8)
