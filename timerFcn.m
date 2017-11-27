@@ -7,5 +7,5 @@ function timerFcn( obj,event,s,theta)
     
     drawnow;
     
-    %gifGen(i, deltaT);
+    gifGen(i, deltaT);
 end

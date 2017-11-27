@@ -25,21 +25,24 @@ modelSelect = 'linear';
 numberOfTests = 10;
 
 % generowanie randomowych nastaw PIDów
-randomPidSets = [rand(numberOfTests,6); [-50.8 7.26 0.24 6 inf 1.5]];
+randomPidSets = [rand(numberOfTests,5)]; %; [-50.8 7.26 0.24 6 inf 1.5]];
 
 % klasyfikacja wyników
 results = [ ];
 
 for row=1:size(randomPidSets,1)
+    % clearvars -except results randomPidSets modelSelect params state0 setTheta setPos row tSim h tt
     % PID1
     Kp1 = randomPidSets(row,1);
     Ti1 = randomPidSets(row,2);
     Td1 = randomPidSets(row,3);
     % PID2
     Kp2 = randomPidSets(row,4);
-    Ti2 = randomPidSets(row,5);
-    Td2 = randomPidSets(row,6);
+    Ti2 = inf;
+    Td2 = randomPidSets(row,5);
     % symulacja
     sim('stabilizacja_pid_rownolegle.slx');
+    % run plots;
+    % run anims;
     results = [results isStabilised(tSim, h, y)];
 end

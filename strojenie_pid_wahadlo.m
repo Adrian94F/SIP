@@ -1,3 +1,4 @@
+clearvars
 M = 0.5; % masa wozka
 m = 0.2; % masa wahadla
 L = 0.3; % dlugosc od mocowania do srodka ciezkosci wahadla

@@ -29,11 +29,11 @@ params = [M,m,L,I,b,g]; % wektor parametrow wahadla do s-funkcji
 modelSelect = 'linear'; % wybor rodzaju modelu: full / linear
 
 % parametry regulatorow
-% PID1
+% PID1 wahad³o
 Kp1 = -50.8;
 Ti1 = 7.26;
 Td1 = 0.24;
-% PID2
+% PID2 pozycja
 Kp2 = 6;
 Ti2 = inf;
 Td2 = 1.5;
@@ -45,9 +45,7 @@ N = K(4);
 disp('Start symulacji...');
 tic();
 % wybor modelu do symulacji
-%sim('stabilizacja_pid_kaskada.slx');
 sim('stabilizacja_pid_rownolegle.slx');
-%sim('stabilizacja_lqr.slx');
 disp('Koniec symulacji');
 toc();
 
