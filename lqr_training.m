@@ -31,26 +31,18 @@ theta0 = 1/20 * pi;
 xDot0 = 0;
 x0 = 0;
 state0 = [thetaDot0;theta0;xDot0;x0]; % wektor stanu poczatkowego wahadla
-M = 0.5; % masa wozka
-m = 0.2; % masa wahadla
-L = 0.3; % dlugosc od mocowania do srodka ciezkosci wahadla
+M = rand(); % masa wozka
+m = rand(); % masa wahadla
+L = rand(); % dlugosc od mocowania do srodka ciezkosci wahadla
 I = 0.006; % moment bezwladnosci wahadla
-b = 0.1; % wspolczynnik tarcia wozka
+b = rand(); % wspolczynnik tarcia wozka
 g = 9.80665; % przyspieszenie ziemskie
-params = [M,m,L,I,b,g]; % wektor parametrow wahadla do s-funkcji
+params = [M,m,L,I,b,g] % wektor parametrow wahadla do s-funkcji
 % wybor modelu i regulatora
 modelSelect = 'linear'; % wybor rodzaju modelu: full / linear
 % parametry regulatorow
-% PID1 wahad³o
-Kp1 = -50.8;
-Ti1 = 7.26;
-Td1 = 0.24;
-% PID2 pozycja
-Kp2 = 6;
-Ti2 = inf;
-Td2 = 1.5;
 % LQR
-K = lqr_neural_network(rand(4, 1))'
+K = lqr_neural_network([M m L b]')'
 N = K(4);
 % symulacja z simulinka
 sim('stabilizacja_lqr.slx');

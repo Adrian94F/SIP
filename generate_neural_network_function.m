@@ -64,10 +64,10 @@ function generate_neural_network_function(randomInput, randomOutput)
     view(net)
 
     % Plots
-    % figure, plotperform(tr)
-    % figure, plottrainstate(tr)
-    % figure, ploterrhist(e)
-    % figure, plotregression(t,y)
+    figure, plotperform(tr)
+    figure, plottrainstate(tr)
+    figure, ploterrhist(e)
+    figure, plotregression(t,y)
 
     % Deployment
 
