@@ -45,7 +45,7 @@ N = K(4);
 disp('Start symulacji...');
 tic();
 % wybor modelu do symulacji
-sim('stabilizacja_pid_rownolegle.slx');
+sim('stabilizacja_lqr.slx');
 disp('Koniec symulacji');
 toc();
 
