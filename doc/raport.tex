@@ -5,12 +5,31 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{indentfirst}
 \author{Adrian Frydmański, Dawid Gracek}
 \title{Systemy Inteligentnego Przetwarzania\\--- Projekt ---\\Wahadło odwrócone (sieć neuronowa)}
 \begin{document}
 	\maketitle
 	\clearpage
-	\section{Wstęp}
+	\section{Wstęp teoretyczny}
+	Odwrócone wahadło niewiele różni się od swojego ,,zwykłego'' odpowiednika. Jest swobodnie wiszącym prętem przymocowanym do wózka. Wózek z kolei ma możliwość poruszania się wzdłuż osi (w jednym wymiarze, acz nic nie stoi na przeszkodzie, żeby rozszerzyć problem wahadła do dwóch wymiarów). Układ ten:
+	\begin{itemize}
+		\item posiada dwa punkty równowagi: stabilny, kiedy wahadło spoczywa w położeniu dolnym i niestabilny, kiedy wahadło skierowane jest pionowo ku górze,
+		\item jest tzw. obiektem niedosterowanym ponieważ wielkości sterowanych możemy wyróżnić więcej niż jest wejść w układzie.
+	\end{itemize}
+	
+	Jedyną wielkością, która wpływa na stan układu jest siła przyłożona do wózka, którego przemieszczanie się wprawia w ruch wahadło. Taki układ regulacji może mieć kilka celów:
+	\begin{itemize}
+		\item stabilizacja wahadła w położeniu górnym,
+		\item regulacja położenia wózka w odniesieniu do całego stanowiska,
+		\item realizacja algorytmów umożliwiających rozbujanie wahadła z pozycji dolnej i doprowadzenie go to pozycji górnej.
+	\end{itemize}
+	
+	Ów projekt zakłada realizację 2. pierwszych celów poprzez generowanie odpowiednich nastaw regulatora kontrolującego ruch wózka i wprowadzenie go do położenia górnego ze stanu początkowego, gdy wahadło jest nachylone względem ziemi pod kątem mniejszym, niż $90^\circ$.
+	
 	\section{Implementacja}	
+	Opisać: co zrobiliśmy? + jak zrobiliśmy? + jak uzyskaliśmy dane? + topologia sieci + proces uczenia sieci
+	
 	\section{Podsumowanie}
+	prezentacja wniosków + podsumowanie, że dziaua ;)
 \end{document}
