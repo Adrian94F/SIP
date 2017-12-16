@@ -1,5 +1,15 @@
 # Wahadło odwrócone
 
+## Raport
+- co to za temat?
+- co zrobiliśmy?
+- jak zrobiliśmy?
+	- jak uzyskaliśmy dane?
+	- topologia sieci
+	- proces uczenia sieci
+- prezentacja wniosków
+- podsumowanie, że dziaua ;)
+
 ## Quo vadis?
 - generujemy losowe nastawy PIDów
 - klasyfikujemy je - czy doprowadzają do stabilizacji, czy też nie (czyli określona prędkość po zadanym czasie)

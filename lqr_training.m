@@ -37,12 +37,12 @@ L = rand(); % dlugosc od mocowania do srodka ciezkosci wahadla
 I = 0.006; % moment bezwladnosci wahadla
 b = rand(); % wspolczynnik tarcia wozka
 g = 9.80665; % przyspieszenie ziemskie
-params = [M,m,L,I,b,g] % wektor parametrow wahadla do s-funkcji
+params = [M,m,L,I,b,g]; % wektor parametrow wahadla do s-funkcji
 % wybor modelu i regulatora
 modelSelect = 'linear'; % wybor rodzaju modelu: full / linear
 % parametry regulatorow
 % LQR
-K = lqr_neural_network([M m L b]')'
+K = lqr_neural_network([M m L b]')';
 N = K(4);
 % symulacja z simulinka
 sim('stabilizacja_lqr.slx');
