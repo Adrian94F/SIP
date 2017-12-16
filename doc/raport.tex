@@ -5,6 +5,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{float}
 \usepackage{indentfirst}
 \author{Adrian Frydmański, Dawid Gracek}
 \title{Systemy Inteligentnego Przetwarzania\\--- Projekt ---\\Wahadło odwrócone (sieć neuronowa)}
@@ -15,8 +16,14 @@
 	Odwrócone wahadło niewiele różni się od swojego ,,zwykłego'' odpowiednika. Jest swobodnie wiszącym prętem przymocowanym do wózka. Wózek z kolei ma możliwość poruszania się wzdłuż osi (w jednym wymiarze, acz nic nie stoi na przeszkodzie, żeby rozszerzyć problem wahadła do dwóch wymiarów). Układ ten:
 	\begin{itemize}
 		\item posiada dwa punkty równowagi: stabilny, kiedy wahadło spoczywa w położeniu dolnym i niestabilny, kiedy wahadło skierowane jest pionowo ku górze,
-		\item jest tzw. obiektem niedosterowanym ponieważ wielkości sterowanych możemy wyróżnić więcej niż jest wejść w układzie.
+		\item jest tzw. obiektem niedosterowanym, ponieważ wielkości sterowanych możemy wyróżnić więcej niż jest wejść w układzie.
 	\end{itemize}
+
+	\begin{figure}[H]
+		\center
+		\includegraphics[width=.6\textwidth]{w.png}
+		\caption{Model wahadła}
+	\end{figure}
 	
 	Jedyną wielkością, która wpływa na stan układu jest siła przyłożona do wózka, którego przemieszczanie się wprawia w ruch wahadło. Taki układ regulacji może mieć kilka celów:
 	\begin{itemize}
@@ -25,11 +32,59 @@
 		\item realizacja algorytmów umożliwiających rozbujanie wahadła z pozycji dolnej i doprowadzenie go to pozycji górnej.
 	\end{itemize}
 	
-	Ów projekt zakłada realizację 2. pierwszych celów poprzez generowanie odpowiednich nastaw regulatora kontrolującego ruch wózka i wprowadzenie go do położenia górnego ze stanu początkowego, gdy wahadło jest nachylone względem ziemi pod kątem mniejszym, niż $90^\circ$.
+	Ów projekt zakłada realizację 2. pierwszych celów poprzez generowanie odpowiednich nastaw regulatora kontrolującego ruch wózka i wprowadzenie go do położenia górnego ze stanu początkowego, gdy wahadło jest nachylone względem ziemi pod kątem mniejszym, niż $90^\circ$. Nastawy mają być generowane przez wyuczoną sieć neuronową.
 	
-	\section{Implementacja}	
-	Opisać: co zrobiliśmy? + jak zrobiliśmy? + jak uzyskaliśmy dane? + topologia sieci + proces uczenia sieci
+	Matematyczny model wahadła jest opisany na stronie jtjt.pl\footnote{http://jtjt.pl/www/pages/odwrocone-wahadlo/LMIP.pdf} i stamtąd właśnie zaczerpnięte są obliczenia, z których korzysta symulacja.
+	
+	\section{Implementacja}
+	Środowisko, w jakim została przeprowadzona symulacja i tworzenie sieci neuronowej, to Matlab R2017a. Dane testowe do uczenia sieci zostały pozyskane przez funkcję\footnote{Model i funkcja dostępne na https://github.com/Jarczyslaw/Inverted-Pendulum} do strojenia regulatora liniowo kwadratowego w zależności od ,,parametrów środowiska'':
+	\begin{itemize}
+		\item masa wózka,
+		\item masa wahadła,
+		\item długość od mocowania do środka ciężkości wahadła,
+		\item współczynnik tarcia wózka.
+	\end{itemize}
+
+	W głównej funkcji, \texttt{lqr\_training}, zostało wygenerowane 100.000 losowych zestawów danych i znaleziono dla każdego z nich odpowiednie nastawy regulatora.\footnote{Cały kod dostępny w repozytorium https://github.com/Adrian94F/SIP} Następnie w narzędziu \texttt{nntool} została wygenerowana sieć neuronowa, która na owych zestawach nauczyła się dobierać parametry regulatora. Sprawdzono, że dla 4 neuronów --- tylu, co wyjść --- sieć działa wystarczająco dobrze. Sieć posiada jedną warstwę ukrytą. Przyjęto następujące wielkości podzbiorów zbioru 100.000 zestawów testowych:
+	\begin{itemize}
+		\item 70\% --- zbiór uczący
+		\item 15\% --- zbiór walidacyjny
+		\item 15\% --- zbiór testowy
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\center
+		\includegraphics[width=\textwidth]{nn.png}
+		\caption{Wygenerowana sieć i proces uczenia}
+	\end{figure}
+
+	\begin{figure}[H]
+		\center
+		\includegraphics[width=.88\textwidth]{perf.png}
+		\caption{Wykres błędów od epok treningowych}
+	\end{figure}
+
+	\begin{figure}[H]
+		\center
+		\includegraphics[width=.88\textwidth]{errhist.png}
+		\caption{Histogram błędów}
+	\end{figure}
+	
+	Po wygenerowaniu sieci został ponownie wylosowany zbiór zmiennych środowiska, na podstawie których sieć znalazła odpowiednie nastawy regulatorów. Została uruchomiona symulacja i przebiegła ona pomyślnie.
+	
+	\begin{figure}[H]
+		\center
+		\includegraphics[width=\textwidth]{wyniksymulacji1.png}
+		\caption{Osiągnięty stan równowagi podczas symulacji}
+	\end{figure}
+
+	\begin{figure}[H]
+		\center
+		\includegraphics[width=\textwidth]{wyniksymulacji2.png}
+		\caption{Wyniki symulacji (od góry): kąt i pochodna kąta pomiędzy wahadłem, a pionem, prędkość i pozycja wózka, przyłożona siła do wózka i zadana wartość zadana}
+	\end{figure}
 	
 	\section{Podsumowanie}
-	prezentacja wniosków + podsumowanie, że dziaua ;)
+	% prezentacja wniosków + podsumowanie, że dziaua ;)
+	\ldots
 \end{document}

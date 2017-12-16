@@ -1,7 +1,7 @@
 clearvars;
 
 % generowanie nastaw regulatora dla losowych parametrów œrodowiska
-nOfGenParams = 1000;
+nOfGenParams = 100000;
 randomInput = rand(nOfGenParams, 4);
 randomOutput = zeros(nOfGenParams, 4);
 for i=1:nOfGenParams
