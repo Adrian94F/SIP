@@ -13,7 +13,7 @@
 	\maketitle
 	\clearpage
 	\section{Wstęp teoretyczny}
-	Odwrócone wahadło niewiele różni się od swojego ,,zwykłego'' odpowiednika. Jest swobodnie wiszącym prętem przymocowanym do wózka. Wózek z kolei ma możliwość poruszania się wzdłuż osi (w jednym wymiarze, acz nic nie stoi na przeszkodzie, żeby rozszerzyć problem wahadła do dwóch wymiarów). Układ ten:
+	Odwrócone wahadło niewiele różni się od swojego ,,zwykłego'' odpowiednika. Jest swobodnie wiszącym prętem przymocowanym jednym końcem do wózka. Wózek z kolei ma możliwość poruszania się wzdłuż osi (w jednym wymiarze, acz nic nie stoi na przeszkodzie, żeby rozszerzyć problem wahadła do dwóch wymiarów). Układ ten:
 	\begin{itemize}
 		\item posiada dwa punkty równowagi: stabilny, kiedy wahadło spoczywa w położeniu dolnym i niestabilny, kiedy wahadło skierowane jest pionowo ku górze,
 		\item jest tzw. obiektem niedosterowanym, ponieważ wielkości sterowanych możemy wyróżnić więcej niż jest wejść w układzie.
@@ -44,14 +44,22 @@
 		\item długość od mocowania do środka ciężkości wahadła,
 		\item współczynnik tarcia wózka.
 	\end{itemize}
-
-	W głównej funkcji, \texttt{lqr\_training}, zostało wygenerowane 100.000 losowych zestawów danych i znaleziono dla każdego z nich odpowiednie nastawy regulatora.\footnote{Cały kod dostępny w repozytorium https://github.com/Adrian94F/SIP} Następnie w narzędziu \texttt{nntool} została wygenerowana sieć neuronowa, która na owych zestawach nauczyła się dobierać parametry regulatora. Sprawdzono, że dla 4 neuronów --- tylu, co wyjść --- sieć działa wystarczająco dobrze. Sieć posiada jedną warstwę ukrytą. Przyjęto następujące wielkości podzbiorów zbioru 100.000 zestawów testowych:
+		
+	W głównej funkcji, \texttt{lqr\_training}, zostało wygenerowane 100.000 losowych zestawów danych i znaleziono dla każdego z nich odpowiednie nastawy regulatora.\footnote{Cały kod dostępny w repozytorium https://github.com/Adrian94F/SIP} Następnie w narzędziu \texttt{nntraintool} została wygenerowana sieć neuronowa, która na owych zestawach nauczyła się dobierać parametry regulatora. Sprawdzono, że dla 4 neuronów --- tylu, co wyjść --- sieć działa wystarczająco dobrze. Sieć posiada jedną warstwę ukrytą. Przyjęto następujące wielkości podzbiorów zbioru 100.000 zestawów testowych:
 	\begin{itemize}
 		\item 70\% --- zbiór uczący
 		\item 15\% --- zbiór walidacyjny
 		\item 15\% --- zbiór testowy
 	\end{itemize}
 	
+	Warto przyjrzeć się dokładniej kilku aspektom, które udało się zauważyć podczas tworzenia niniejszego projektu. 
+	
+	Mając 4 neurony wejściowe i wyjściowe sieci neuronowej, jej dokładność, czyli wielkość błędu średnio kwadratowego, zależy od przedziału wartości neuronów wejściowych. Zwiększając ten zbiór o jeden rząd dla dwóch neuronów (masy wózka i wahadła), liczbę danych uczących powinno się zwiększyć o 2 rzędy --- jeśli granice badanej przestrzeni zwiększymy w 2 wymiarach 2-krotnie, to by zachować to samo zagęszczenie, należy zwiększyć liczbę elementów w niej 2-krotnie dla każdego wymairu, zatem 4-krotnie. Nie zwiększając go, błąd ulegnie powiększeniu ze względu na zbyt mały rozmiar zbioru danych uczących.
+	
+	Biorąc po uwagę szybkość generacji danych uczących oraz szybkość uczenia się sieci neuronowej, należy zauważyć, że przedział wartości masy wózka i masy wahadła oraz liczba próbek danych uczących muszą być dostosowane do mocy obliczeniowej i czasu, jaki chcemy przeznaczyć na cały proces.
+	
+	Dla 100 000 próbek wyznaczono eksperymentalnie, że wartości ograniczające przedział masy wózka i wahadła muszą od siebie odstawać maksymalnie o 3 rzędy. Np. 1 -- 100, 0.1 -- 10 itp. Liczba wartości w przedziale zależy od dokładności funkcji losującej \emph{rand()}, a ta w Matlabie ma dokładność 0,0001.
+
 	\begin{figure}[H]
 		\center
 		\includegraphics[width=\textwidth]{nn.png}
@@ -85,6 +93,6 @@
 	\end{figure}
 	
 	\section{Podsumowanie}
-	Projekt pokazał, że sieć neuronową można zaprząc do przeróżnych zadań, nawet do dostosowywania nastaw regulatora w wahadle odwróconym. Jest to możliwe do zrobienia i proste w implementacji w takim środowisku, jak Matlab, aczkolwiek naszym zdaniem zbędne, gdyż funkcja strojąca regulator, dzięki której uzyskaliśmy dane do nauki sieci, działa wystarczająco szybko, a wynik działania sieci neuronowej zawsze będzie obarczony pewnym błędem w stosunku do wyniku działania owej funkcji.
+	Projekt pokazał, że sieć neuronową można zaprząc do przeróżnych zadań, nawet do dostosowywania nastaw regulatora w wahadle odwróconym. Jest to możliwe do zrobienia i proste w implementacji w takim środowisku, jak Matlab, aczkolwiek zdaniem autorów projektu zbędne, gdyż funkcja strojąca regulator, dzięki której uzyskano dane do nauki sieci, istnieje i działa wystarczająco szybko. Nie widać więc potrzeby wymiany jej na sieć neuronową, której wynik zawsze będzie obarczony pewnym błędem w stosunku do wyniku działania owej funkcji.
 	
 \end{document}
